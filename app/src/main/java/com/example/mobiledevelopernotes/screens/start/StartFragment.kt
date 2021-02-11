@@ -21,7 +21,6 @@ class StartFragment : Fragment() {
     // создаем экземпляр StartFragmentViewModel
     private lateinit var mViewModel: StartFragmentViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
