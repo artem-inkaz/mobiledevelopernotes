@@ -18,7 +18,7 @@
         tools:text="Name note"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
-        android:textSize="@dimen/item_note_name"
+        android:textSize="@dimen/app_large_text"
         android:gravity="center"
         android:lines="1"
         android:layout_margin="@dimen/app_margin"
@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/item_note_text"
-        android:textSize="16sp"
+        android:textSize="@dimen/app_normal_text"
         tools:text="Note text"
         android:textColor="@color/colorPrimary"
         android:layout_margin="@dimen/app_margin"
