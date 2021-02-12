@@ -1,10 +1,8 @@
 package com.example.mobiledevelopernotes.screens.main
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +13,7 @@ import com.example.mobiledevelopernotes.utilits.APP_ACTIVITY
 
 class MainFragment : Fragment() {
     // describe notes
-
-    private  var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentMainBinding? = null
     private val mBinding get() = _binding!!
     private lateinit var mViewModel: MainFragmentViewModel
     // для RecyclerView
@@ -30,8 +27,8 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentMainBinding.inflate(layoutInflater,container,false)
-//        return inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
+        // return inflater.inflate(R.layout.fragment_main, container, false)
         return mBinding.root
     }
 
@@ -40,12 +37,13 @@ class MainFragment : Fragment() {
         initialization()
     }
 
-    private fun initialization(){
+    private fun initialization() {
+        setHasOptionsMenu(true)
         mAdapter = MainAdapter()
         mRecyclerView = mBinding.recyclerView
         mRecyclerView.adapter = mAdapter
         mObserverList = Observer {
-           // создаем лист и будем получать лист it из LiveData
+            // создаем лист и будем получать лист it из LiveData
             // перевернем чтобы записки добавлялись на верх а не вниз RecyclerView
             val list = it.asReversed()
             mAdapter.setList(list)
@@ -54,7 +52,7 @@ class MainFragment : Fragment() {
         mViewModel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
         //------ после того как сделали подключение к адаптеру код выше
         // здесь LiveData под наблюдением
-        mViewModel.allNotes.observe(this,mObserverList)
+        mViewModel.allNotes.observe(this, mObserverList)
         // подключаем слушатель
         mBinding.btnAddNote.setOnClickListener {
             APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
@@ -70,18 +68,36 @@ class MainFragment : Fragment() {
         mRecyclerView.adapter = null
     }
 
+    // создадим меню
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.exit_action_menu, menu)
+    }
+
+    // клик по кнопочке меню
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // получение item id
+        when (item.itemId) {
+            R.id.btn_exit -> {
+                // обращаемся к ViewModel
+                mViewModel.signOut()// после того как задача была выполнена обращаемся к APP_ACTIVITY b переходим в  MainFragment
+                APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_startFragment)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     // чтобы из MainAdapter не создавать экземляр MainFragment
-    companion object{
-        fun click(note: AppNote){
+    companion object {
+        fun click(note: AppNote) {
             // нужно передать нашу заметку из MainFragment в NoteFragment
             val bundle = Bundle()
             // т.к. это наш bundle не стандартный добавляем putSerializable
             // data class AppNote  делаем Serializable
             // в bundle положили нашу заметку
-            bundle.putSerializable("note",note)
+            bundle.putSerializable("note", note)
             // переименовали mNavController
             // т.к. приставка m означает что мы не имеем доступа из других классов к этой переменной
-            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment,bundle)
+            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment, bundle)
 
         }
     }
