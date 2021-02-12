@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.mobiledevelopernotes.R
 import com.example.mobiledevelopernotes.databinding.FragmentStartBinding
-import com.example.mobiledevelopernotes.utilits.APP_ACTIVITY
-import com.example.mobiledevelopernotes.utilits.TYPE_ROOM
+import com.example.mobiledevelopernotes.utilits.*
 import kotlinx.android.synthetic.main.fragment_start.*
 
 // Describe database connections
@@ -42,11 +41,30 @@ class StartFragment : Fragment() {
       // инициализация ViewModel и привязываем ViewModel к жизненному циклу нашего StartFragment
         mViewModel = ViewModelProvider(this).get(StartFragmentViewModel::class.java)
         // клик и передаем типы
-        btn_room.setOnClickListener {
+        mBinding.btnRoom.setOnClickListener {
             mViewModel.initDatabase(TYPE_ROOM){
                 APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
+        }
 
+        mBinding.btnFirebase.setOnClickListener {
+            mBinding.inputEmail.visibility =View.VISIBLE
+            mBinding.inputPassword.visibility =View.VISIBLE
+            mBinding.btnLogin.visibility =View.VISIBLE
+            mBinding.btnLogin.setOnClickListener {
+                val inputEmail = mBinding.inputEmail.text.toString()
+                val inputPassword = mBinding.inputPassword.text.toString()
+                if(inputEmail.isNotEmpty() && inputPassword.isNotEmpty()){
+                    EMAIL = inputEmail
+                    PASSWORD = inputPassword
+                    mViewModel.initDatabase(TYPE_FIREBASE) {
+//                        APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
+                            showToast("INIT OK")
+                    }
+                } else  {
+                        showToast(getString(R.string.toast_wrong_enter))
+                    }
+            }
         }
     }
 

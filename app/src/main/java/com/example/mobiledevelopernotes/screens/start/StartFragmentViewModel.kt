@@ -2,10 +2,13 @@ package com.example.mobiledevelopernotes.screens.start
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.example.mobiledevelopernotes.database.firebase.AppFireBaseRepository
 import com.example.mobiledevelopernotes.database.room.AppRoomDatabase
 import com.example.mobiledevelopernotes.database.room.AppRoomRepository
 import com.example.mobiledevelopernotes.utilits.REPOSITORY
+import com.example.mobiledevelopernotes.utilits.TYPE_FIREBASE
 import com.example.mobiledevelopernotes.utilits.TYPE_ROOM
+import com.example.mobiledevelopernotes.utilits.showToast
 
 // AndroidViewModel позволяет напрямую работать с контекстом и предотвращение утечки памяти
 class StartFragmentViewModel(application: Application):AndroidViewModel(application) {
@@ -22,6 +25,11 @@ class StartFragmentViewModel(application: Application):AndroidViewModel(applicat
                 // когда нажимаем на Room инициализируем наш репозиторий
                 REPOSITORY = AppRoomRepository(dao)
                 onSuccess()
+            }
+            TYPE_FIREBASE -> {
+//                showToast(TYPE_FIREBASE)
+                REPOSITORY = AppFireBaseRepository()
+                REPOSITORY.connectToDataBase( {onSuccess()}, { showToast(it)})
             }
         }
     }

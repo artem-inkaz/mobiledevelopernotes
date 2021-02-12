@@ -10,4 +10,8 @@ interface DataBaseRepository {
     // suspend для коррутин
     suspend fun insert(note: AppNote, onSuccess:()-> Unit)
     suspend fun delete(note: AppNote, onSuccess:()-> Unit)
+
+    fun connectToDataBase(onSuccess: () -> Unit,onFaiil: (String) -> Unit){ }
+
+    fun signOut(){}
 }
