@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -58,7 +57,7 @@ class MainFragment : Fragment() {
         mViewModel.allNotes.observe(this,mObserverList)
         // подключаем слушатель
         mBinding.btnAddNote.setOnClickListener {
-            APP_ACTIVITY.mNavController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
+            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_addNewNoteFragment)
         }
     }
 
@@ -69,5 +68,21 @@ class MainFragment : Fragment() {
         //--------------
         mViewModel.allNotes.removeObserver(mObserverList)
         mRecyclerView.adapter = null
+    }
+
+    // чтобы из MainAdapter не создавать экземляр MainFragment
+    companion object{
+        fun click(note: AppNote){
+            // нужно передать нашу заметку из MainFragment в NoteFragment
+            val bundle = Bundle()
+            // т.к. это наш bundle не стандартный добавляем putSerializable
+            // data class AppNote  делаем Serializable
+            // в bundle положили нашу заметку
+            bundle.putSerializable("note",note)
+            // переименовали mNavController
+            // т.к. приставка m означает что мы не имеем доступа из других классов к этой переменной
+            APP_ACTIVITY.navController.navigate(R.id.action_mainFragment_to_noteFragment,bundle)
+
+        }
     }
 }

@@ -25,7 +25,7 @@ class StartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         // инициализация mBinding
         _binding = FragmentStartBinding.inflate(layoutInflater,container, false)
@@ -44,7 +44,7 @@ class StartFragment : Fragment() {
         // клик и передаем типы
         btn_room.setOnClickListener {
             mViewModel.initDatabase(TYPE_ROOM){
-                APP_ACTIVITY.mNavController.navigate(R.id.action_startFragment_to_mainFragment)
+                APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
 
         }

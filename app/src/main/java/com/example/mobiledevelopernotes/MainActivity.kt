@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mToolbar: Toolbar
     // навигация
-    lateinit var mNavController: NavController
+    lateinit var navController: NavController
     // создание связки, при закрытии MainActivity должны обнулят нашу ссылку _binding
     private var _binding:ActivityMainBinding? = null
     // сссылка ссылается на наш _binding данная строчка val mBinding get() = _binding!! позволит избежать проверки на null
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         // инициализируем mToolbar
         mToolbar = mBinding.toolbar
         // activity_main - fragment сюда будут устанавливаться наши все фрагменеты
-        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         // установка ToolBar
         setSupportActionBar(mToolbar)
         title = getString(R.string.title)

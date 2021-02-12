@@ -45,7 +45,7 @@ class AddNewNoteFragment : Fragment() {
                 // передаем новую заметку и передадим имя
                 mViewModel.insert(AppNote(name = name, text = text)) {
                     // после успешного добавления переходим в другой фрагмент
-                    APP_ACTIVITY.mNavController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
+                    APP_ACTIVITY.navController.navigate(R.id.action_addNewNoteFragment_to_mainFragment)
 
                 }
             }
