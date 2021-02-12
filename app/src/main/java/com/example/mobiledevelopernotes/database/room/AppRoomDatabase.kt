@@ -22,15 +22,15 @@ abstract class AppRoomDatabase : RoomDatabase() {
         //запретим чтобы к функции могли обращаться несколько экземпляров одновременно
         @Synchronized
         fun getInstance(context: Context): AppRoomDatabase {
-            if (database == null) {
+           return if (database == null) {
                 // инициализируем создаем  БД
                 database = Room.databaseBuilder(
                     context,
                     AppRoomDatabase::class.java,
                     "database"
                 ).build()
-                return database as AppRoomDatabase
-            } else return database as AppRoomDatabase
+                database as AppRoomDatabase
+            } else database as AppRoomDatabase
         }
     }
 }

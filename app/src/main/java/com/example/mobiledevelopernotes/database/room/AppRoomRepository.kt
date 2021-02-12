@@ -12,10 +12,12 @@ class AppRoomRepository(private val appRoomDao: AppRoomDao):DataBaseRepository {
 
     override suspend fun insert(note: AppNote, onSuccess: () -> Unit) {
         appRoomDao.Insert(note)
+        onSuccess()
     }
 
     override suspend fun delete(note: AppNote, onSuccess: () -> Unit) {
         appRoomDao.delete(note)
+        onSuccess()
     }
 
 }
