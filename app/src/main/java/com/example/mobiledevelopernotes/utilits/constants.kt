@@ -9,3 +9,6 @@ const val TYPE_DATABASE = "type database"
 const val TYPE_ROOM = "type_room"
 
 lateinit var REPOSITORY:DataBaseRepository
+const val TYPE_FIREBASE = "type_firebase"
+lateinit var EMAIL: String
+lateinit var PASSWORD: String
