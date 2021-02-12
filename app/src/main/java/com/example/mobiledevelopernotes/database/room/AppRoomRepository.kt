@@ -20,4 +20,6 @@ class AppRoomRepository(private val appRoomDao: AppRoomDao):DataBaseRepository {
         onSuccess()
     }
 
+    override fun signOut() {
+    }
 }

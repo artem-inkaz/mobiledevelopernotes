@@ -8,5 +8,9 @@ class MainFragmentViewModel(application:Application):AndroidViewModel(applicatio
     // получаем ее из REPOSITORY.allNotes
     //  val allNotes - это уже LiveData
     val allNotes = REPOSITORY.allNotes
+    //
+    fun signOut(){
+        REPOSITORY.signOut()
+    }
 
 }

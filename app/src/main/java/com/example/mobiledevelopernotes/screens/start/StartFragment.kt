@@ -46,7 +46,6 @@ class StartFragment : Fragment() {
                 APP_ACTIVITY.navController.navigate(R.id.action_startFragment_to_mainFragment)
             }
         }
-
         mBinding.btnFirebase.setOnClickListener {
             mBinding.inputEmail.visibility =View.VISIBLE
             mBinding.inputPassword.visibility =View.VISIBLE
