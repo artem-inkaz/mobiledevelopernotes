@@ -26,6 +26,20 @@ class MainAdapter:RecyclerView.Adapter<MainAdapter.MainHolder>() {
         val nameNote: TextView = view.item_note_name
         val textNote: TextView = view.item_note_text
     }
+
+    // Ctrl+ O функция отрабатывает тогда когда holder отображается на экране
+    override fun onViewAttachedToWindow(holder: MainHolder) {
+        holder.itemView.setOnClickListener {
+            // получение позиции нашего holder в адаптере
+            MainFragment.click(mListNotes[holder.adapterPosition])
+        }
+    }
+    // когда holder уходит с экрана удаляем слушатель события от нашего holder-a
+    override fun onViewDetachedFromWindow(holder: MainHolder) {
+        holder.itemView.setOnClickListener (null)
+        super.onViewDetachedFromWindow(holder)
+    }
+
     // нажимаем на MainAdapter с Ctrl+O и выбираем методы которые нужно имплементировать реализовать
     // создание holderв котром будут храниться все наши вьюшки
     //13
